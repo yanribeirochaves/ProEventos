@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ProEvento.API.Data;
 using ProEvento.API.Models;
 
 namespace ProEvento.API.Controllers
@@ -12,15 +13,7 @@ namespace ProEvento.API.Controllers
     [Route("[controller]")]
     public class EventoController : ControllerBase
     {
-        public EventoController()
-        {
-            
-        }
-
-        [HttpGet]
-        public IEnumerable<Evento> Get()
-        {
-            return new Evento[] 
+        public IEnumerable<Evento> _evento = new Evento[] 
             {
                 new Evento()
                 {
@@ -29,7 +22,8 @@ namespace ProEvento.API.Controllers
                     Local = "aaaaaaaaaaaa",
                     Lote = "sssssssss",
                     QtdPessoa = 250,
-                    DataEvento = DateTime.Now.AddDays(2).ToShortDateString()
+                    DataEvento = DateTime.Now.AddDays(2).ToShortDateString(),
+                    ImagemURL = "foto.png"
                 },
                 new Evento()
                 {
@@ -38,9 +32,28 @@ namespace ProEvento.API.Controllers
                     Local = "aaaaaaaaaaaa",
                     Lote = "sssssssss",
                     QtdPessoa = 250,
-                    DataEvento = DateTime.Now.AddDays(2).ToShortDateString()
+                    DataEvento = DateTime.Now.AddDays(2).ToShortDateString(),
+                    ImagemURL = "foto.png"
                 }
             };
+        private readonly DataContext _context;
+
+        public EventoController(DataContext context)
+        {
+            this._context = context;
+            
+        }
+
+        [HttpGet]
+        public IEnumerable<Evento> Get()
+        {
+           return _context.Eventos;
+        }
+
+        [HttpGet("{id}")]
+        public Evento GetById(int id)
+        {
+            return _context.Eventos.FirstOrDefault(evento => evento.EventoId == id);
         }
         
         [HttpPost]
