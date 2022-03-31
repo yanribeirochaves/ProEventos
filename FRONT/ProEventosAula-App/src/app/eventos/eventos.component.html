@@ -24,15 +24,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
+    <tr *ngFor="let evento of eventos">
+      <td>{{evento.id}}</td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>{{evento.tema}}</td>
+      <td>{{evento.local}}</td>
+      <td>{{evento.data}}</td>
+      <td>{{evento.qtdPessoa}}</td>
+      <td>{{evento.lote}}</td>
       <td></td>
     </tr>
   </tbody>
 </table>
+
