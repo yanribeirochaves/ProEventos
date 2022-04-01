@@ -486,3 +486,7 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+#excluindo o db
+*.db-shm
+*.db-wal
